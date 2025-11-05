@@ -1,0 +1,96 @@
+# ===========================================
+# .NET
+# ===========================================
+[Bb]in/
+[Oo]bj/
+[Ll]og*
+[Ll]ogs/
+[Tt]emp/
+[Tt]mp/
+*.log
+*.tmp
+*.tmp.*
+*.cache
+*.user
+*.suo
+*.userprefs
+*.pidb
+*.booproj
+*.swp
+*~
+*.[Cc]ache
+*.dbmdl
+*.pfx
+*.publishsettings
+
+# Visual Studio / VSCode
+.vs/
+.vscode/settings.json
+.vscode/launch.json
+.vscode/extensions.json
+*.csproj.user
+*.csproj.DotSettings
+*.sln.docstates
+[Tt]est[Rr]esults/
+[Bb]uild[Ll]og.*
+*.VisualState.xml
+
+# Rider
+.idea/
+*.sln.iml
+
+# Entity Framework
+*.mdf
+*.ldf
+*.ndf
+
+# ===========================================
+# Node.js / Angular / Ionic
+# ===========================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Angular / Ionic build artifacts
+dist/
+www/
+platforms/
+plugins/ 
+.angular/
+.ionic/
+coverage/
+.nyc_output/
+.sass-cache/
+
+# ===========================================
+# OS / IDE files
+# ===========================================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ===========================================
+# Docker / DevOps
+# ===========================================
+.env
+.env.local
+.env.*.local
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Certificates (development)
+*.p12
+*.pem
+*.key
+
+# Logs
+logs/
+*.log

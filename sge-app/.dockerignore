@@ -1,0 +1,16 @@
+node_modules
+dist
+www
+.angular
+.ionic
+coverage
+.git
+.gitignore
+README.md
+Dockerfile
+.dockerignore
+*.md
+npm-debug.log*
+yarn-error.log*
+.env
+.env.*

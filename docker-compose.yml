@@ -1,0 +1,45 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sge-sql
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=ydQk3zrE3kBOLON4sw9a
+    ports:
+      - "1433:1433"
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools18/bin/sqlcmd", "-S", "localhost,1433", "-U", "sa", "-P", "ydQk3zrE3kBOLON4sw9a", "-No", "-Q", "SELECT 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+
+  api:
+    build:
+      context: ./sge-api
+      dockerfile: SGE.Api/Dockerfile
+    container_name: sge-api
+    environment:
+      - ASPNETCORE_URLS=http://+:5000
+      - ConnectionStrings__Default=Server=sqlserver,1433;Database=SGE;User Id=sa;Password=ydQk3zrE3kBOLON4sw9a;TrustServerCertificate=True
+    ports:
+      - "5000:5000"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    restart: unless-stopped
+
+  app:
+    build:
+      context: ./sge-app
+      dockerfile: Dockerfile
+    container_name: sge-app
+    ports:
+      - "8100:80"
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  sqlserver-data:

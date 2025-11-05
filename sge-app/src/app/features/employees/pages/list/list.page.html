@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Gestión de Empleados</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="search-container">
+    <ion-searchbar
+      [(ngModel)]="searchQuery"
+      (ionInput)="onSearch($event)"
+      placeholder="Buscar por ID o nombre..."
+      debounce="500">
+    </ion-searchbar>
+    <ion-button (click)="onNew()" color="primary">
+      <ion-icon slot="start" name="add"></ion-icon>
+      Nuevo Empleado
+    </ion-button>
+  </div>
+
+  @if (!loading) {
+  <div class="table-container">
+    <table class="employees-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th (click)="onSort('FullName')" class="sortable">
+            Nombre Completo
+            @if (orderBy === 'FullName') {
+            <ion-icon [name]="desc ? 'arrow-down' : 'arrow-up'"></ion-icon>
+            }
+          </th>
+          <th>Cargo</th>
+          <th>Departamento</th>
+          <th (click)="onSort('HireDate')" class="sortable">
+            Fecha Contratación
+            @if (orderBy === 'HireDate') {
+            <ion-icon [name]="desc ? 'arrow-down' : 'arrow-up'"></ion-icon>
+            }
+          </th>
+          <th>Salario</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (employee of employees; track employee.id) {
+          <tr>
+            <td>{{ employee.id }}</td>
+            <td>{{ employee.fullName }}</td>
+            <td>{{ employee.role }}</td>
+            <td>{{ employee.department }}</td>
+            <td>{{ employee.hireDate | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ employee.salary | currency: 'USD':'symbol':'1.0-0' }}</td>
+            <td>
+              <ion-button size="small" fill="clear" (click)="onEdit(employee)" title="Editar Empleado">
+                <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+              </ion-button>
+              <ion-button size="small" fill="clear" color="danger" (click)="onDelete(employee)" title="Eliminar Empleado">
+                <ion-icon slot="icon-only" name="trash-bin-outline"></ion-icon>
+              </ion-button>
+            </td>
+          </tr>
+        }
+        @if (employees.length === 0) {
+          <tr>
+            <td colspan="7" class="no-data">No se encontraron empleados</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  }
+
+  @if (totalPages > 1) {
+  <div class="pagination">
+    <ion-button 
+      size="small" 
+      fill="outline" 
+      [disabled]="currentPage === 1"
+      (click)="onPageChange(currentPage - 1)">
+      Anterior
+    </ion-button>
+    
+    <span class="page-info">
+      Página {{ currentPage }} de {{ totalPages }} ({{ totalCount }} registros)
+    </span>
+    
+    <ion-button 
+      size="small" 
+      fill="outline" 
+      [disabled]="currentPage === totalPages"
+      (click)="onPageChange(currentPage + 1)">
+      Siguiente
+    </ion-button>
+  </div>
+  }
+
+  @if (loading) {
+    <ion-spinner name="crescent" class="center-spinner"></ion-spinner>
+  }
+</ion-content>

@@ -1,0 +1,15 @@
+bin
+obj
+.vs
+**/*.user
+**/*.csproj.user
+**/*.suo
+TestResults
+.git
+.gitignore
+README.md
+Dockerfile
+.dockerignore
+*.md
+.env
+.env.*

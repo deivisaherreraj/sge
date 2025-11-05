@@ -1,0 +1,7 @@
+{
+  "name": "SGE App",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
